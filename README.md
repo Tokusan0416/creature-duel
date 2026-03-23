@@ -1,17 +1,100 @@
 # Creature Duel
 
-## ディレクトリ構成
+ポケモンに似た対戦バトルシミュレーションシステム。
+バトルログをJSON形式で出力し、BigQueryに格納して分析・機械学習に活用できます。
+
+## 🚀 クイックスタート
+
+### インストール
+
+```bash
+# 依存関係のインストール
+pip install -e ".[dev]"
 ```
-entities/
-    creature.py
-    skill.py
-value_objects/
-    stats.py
-    type.py
-services/
-    damage_calculator.py
-battle/
-    battle_state.py
-    turn_processor.py
-    battle_engine.py
+
+### デモ実行
+
+```bash
+# シンプルなバトルを実行
+python examples/simple_battle.py
 ```
+
+### テスト実行
+
+```bash
+# 全テストを実行
+pytest tests/ -v
+
+# カバレッジ付きで実行
+pytest tests/ --cov=src --cov-report=html
+```
+
+## 📁 プロジェクト構造
+
+```
+creature-duel/
+├── src/creature_duel/       # メインソースコード
+│   ├── domain/              # ドメインモデル
+│   │   ├── entities/        # Creature, Skill等
+│   │   ├── value_objects/   # Stats, Type等
+│   │   └── enums/           # MoveCategory等
+│   ├── application/         # アプリケーション層
+│   │   └── services/        # DamageCalculator等
+│   ├── battle/              # バトルエンジン
+│   └── infrastructure/      # インフラ層
+│
+├── tests/                   # テストコード
+├── examples/                # サンプルスクリプト
+├── data/                    # マスタデータ
+├── docs/                    # ドキュメント
+└── ROADMAP.md              # 開発ロードマップ
+```
+
+## 📖 ドキュメント
+
+- [DEVELOPMENT.md](DEVELOPMENT.md) - 詳細な仕様
+- [ROADMAP.md](ROADMAP.md) - 開発ロードマップ
+
+## 🎮 使用例
+
+```python
+from creature_duel import Creature, Skill, Stats, Type, MoveCategory, BattleEngine
+
+# クリーチャーを作成
+charizard = Creature(
+    name="Charizard",
+    types=[Type.FIRE],
+    base_stats=Stats(hp=150, attack=84.0, defence=78.0,
+                     sp_attack=109.0, sp_defence=85.0, speed=100.0),
+    skills=[...]
+)
+
+# バトルを実行
+engine = BattleEngine()
+result = engine.execute_battle(charizard, blastoise)
+
+print(f"勝者: {result['winner']}")
+print(f"総ターン数: {result['total_turns']}")
+```
+
+## 🧪 開発状況
+
+- ✅ Phase 1: 基礎構築（完了）
+- ⚪ Phase 2: ドメインモデル拡張（未着手）
+- ⚪ Phase 3: 計算ロジック実装（未着手）
+- ⚪ Phase 4: バトルシステム実装（未着手）
+- ⚪ Phase 5: BigQuery連携（未着手）
+
+詳細は [ROADMAP.md](ROADMAP.md) を参照してください。
+
+## 🛠️ 技術スタック
+
+- **Python 3.11+**
+- **Pydantic** - データバリデーション
+- **Google Cloud BigQuery** - ログ保存
+- **pytest** - テスト
+- **black** / **ruff** - コード品質
+
+## 📝 ライセンス
+
+MIT License
