@@ -1,3 +1,5 @@
+# Creature Duel
+
 ## ディレクトリ構成
 ```
 entities/
