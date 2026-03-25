@@ -1,0 +1,118 @@
+{
+  "abilities": [
+    {
+      "id": "blaze",
+      "name": "Blaze",
+      "description": "HP 1/3以下で炎タイプの技威力1.5倍",
+      "trigger": "on_attack",
+      "effect_config": {
+        "type": "type_boost",
+        "boosted_type": "fire",
+        "multiplier": 1.5,
+        "hp_threshold": 0.33
+      }
+    },
+    {
+      "id": "torrent",
+      "name": "Torrent",
+      "description": "HP 1/3以下で水タイプの技威力1.5倍",
+      "trigger": "on_attack",
+      "effect_config": {
+        "type": "type_boost",
+        "boosted_type": "water",
+        "multiplier": 1.5,
+        "hp_threshold": 0.33
+      }
+    },
+    {
+      "id": "overgrow",
+      "name": "Overgrow",
+      "description": "HP 1/3以下で草タイプの技威力1.5倍",
+      "trigger": "on_attack",
+      "effect_config": {
+        "type": "type_boost",
+        "boosted_type": "grass",
+        "multiplier": 1.5,
+        "hp_threshold": 0.33
+      }
+    },
+    {
+      "id": "intimidate",
+      "name": "Intimidate",
+      "description": "場に出た時、相手のAttackを1段階下げる",
+      "trigger": "on_switch_in",
+      "effect_config": {
+        "type": "stat_change",
+        "target": "opponent",
+        "stat": "attack",
+        "stages": -1
+      }
+    },
+    {
+      "id": "insomnia",
+      "name": "Insomnia",
+      "description": "眠り状態にならない",
+      "trigger": "passive",
+      "effect_config": {
+        "type": "ailment_immunity",
+        "immune_to": ["asleep"]
+      }
+    },
+    {
+      "id": "immunity",
+      "name": "Immunity",
+      "description": "毒状態にならない",
+      "trigger": "passive",
+      "effect_config": {
+        "type": "ailment_immunity",
+        "immune_to": ["poisoned"]
+      }
+    },
+    {
+      "id": "magma_armor",
+      "name": "Magma Armor",
+      "description": "氷状態にならない",
+      "trigger": "passive",
+      "effect_config": {
+        "type": "ailment_immunity",
+        "immune_to": ["frozen"]
+      }
+    },
+    {
+      "id": "static",
+      "name": "Static",
+      "description": "接触技を受けた時、30%で相手を麻痺",
+      "trigger": "on_hit",
+      "effect_config": {
+        "type": "ailment_inflict",
+        "ailment": "paralyzed",
+        "chance": 0.3,
+        "contact_only": true
+      }
+    },
+    {
+      "id": "flame_body",
+      "name": "Flame Body",
+      "description": "接触技を受けた時、30%で相手を火傷",
+      "trigger": "on_hit",
+      "effect_config": {
+        "type": "ailment_inflict",
+        "ailment": "burned",
+        "chance": 0.3,
+        "contact_only": true
+      }
+    },
+    {
+      "id": "poison_point",
+      "name": "Poison Point",
+      "description": "接触技を受けた時、30%で相手を毒",
+      "trigger": "on_hit",
+      "effect_config": {
+        "type": "ailment_inflict",
+        "ailment": "poisoned",
+        "chance": 0.3,
+        "contact_only": true
+      }
+    }
+  ]
+}

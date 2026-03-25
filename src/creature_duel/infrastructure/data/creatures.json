@@ -1,0 +1,154 @@
+{
+  "creatures": [
+    {
+      "id": "charizard",
+      "name": "Charizard",
+      "types": ["fire"],
+      "base_stats": {
+        "hp": 150,
+        "attack": 84.0,
+        "defence": 78.0,
+        "sp_attack": 109.0,
+        "sp_defence": 85.0,
+        "speed": 100.0
+      },
+      "ability": "blaze",
+      "skill_ids": ["flamethrower", "fire_blast", "fire_punch", "overheat"]
+    },
+    {
+      "id": "blastoise",
+      "name": "Blastoise",
+      "types": ["water"],
+      "base_stats": {
+        "hp": 158,
+        "attack": 83.0,
+        "defence": 100.0,
+        "sp_attack": 85.0,
+        "sp_defence": 105.0,
+        "speed": 78.0
+      },
+      "ability": "torrent",
+      "skill_ids": ["surf", "hydro_pump", "waterfall", "ice_beam"]
+    },
+    {
+      "id": "venusaur",
+      "name": "Venusaur",
+      "types": ["grass"],
+      "base_stats": {
+        "hp": 155,
+        "attack": 82.0,
+        "defence": 83.0,
+        "sp_attack": 100.0,
+        "sp_defence": 100.0,
+        "speed": 80.0
+      },
+      "ability": "overgrow",
+      "skill_ids": ["solar_beam", "energy_ball", "vine_whip", "leaf_storm"]
+    },
+    {
+      "id": "pikachu",
+      "name": "Pikachu",
+      "types": ["electric"],
+      "base_stats": {
+        "hp": 95,
+        "attack": 55.0,
+        "defence": 40.0,
+        "sp_attack": 50.0,
+        "sp_defence": 50.0,
+        "speed": 90.0
+      },
+      "ability": "static",
+      "skill_ids": ["thunderbolt", "thunder", "volt_tackle", "quick_attack"]
+    },
+    {
+      "id": "lapras",
+      "name": "Lapras",
+      "types": ["water", "ice"],
+      "base_stats": {
+        "hp": 200,
+        "attack": 85.0,
+        "defence": 80.0,
+        "sp_attack": 85.0,
+        "sp_defence": 95.0,
+        "speed": 60.0
+      },
+      "ability": "torrent",
+      "skill_ids": ["surf", "ice_beam", "blizzard", "body_slam"]
+    },
+    {
+      "id": "jolteon",
+      "name": "Jolteon",
+      "types": ["electric"],
+      "base_stats": {
+        "hp": 130,
+        "attack": 65.0,
+        "defence": 60.0,
+        "sp_attack": 110.0,
+        "sp_defence": 95.0,
+        "speed": 130.0
+      },
+      "ability": "static",
+      "skill_ids": ["thunderbolt", "thunder", "wild_charge", "quick_attack"]
+    },
+    {
+      "id": "snorlax",
+      "name": "Snorlax",
+      "types": ["normal"],
+      "base_stats": {
+        "hp": 260,
+        "attack": 110.0,
+        "defence": 65.0,
+        "sp_attack": 65.0,
+        "sp_defence": 110.0,
+        "speed": 30.0
+      },
+      "ability": "immunity",
+      "skill_ids": ["body_slam", "hyper_beam", "ice_punch", "fire_punch"]
+    },
+    {
+      "id": "flareon",
+      "name": "Flareon",
+      "types": ["fire"],
+      "base_stats": {
+        "hp": 130,
+        "attack": 130.0,
+        "defence": 60.0,
+        "sp_attack": 95.0,
+        "sp_defence": 110.0,
+        "speed": 65.0
+      },
+      "ability": "flame_body",
+      "skill_ids": ["fire_blast", "flamethrower", "fire_punch", "quick_attack"]
+    },
+    {
+      "id": "vaporeon",
+      "name": "Vaporeon",
+      "types": ["water"],
+      "base_stats": {
+        "hp": 200,
+        "attack": 65.0,
+        "defence": 60.0,
+        "sp_attack": 110.0,
+        "sp_defence": 95.0,
+        "speed": 65.0
+      },
+      "ability": "torrent",
+      "skill_ids": ["surf", "hydro_pump", "ice_beam", "aqua_tail"]
+    },
+    {
+      "id": "leafeon",
+      "name": "Leafeon",
+      "types": ["grass"],
+      "base_stats": {
+        "hp": 130,
+        "attack": 110.0,
+        "defence": 130.0,
+        "sp_attack": 60.0,
+        "sp_defence": 65.0,
+        "speed": 95.0
+      },
+      "ability": "overgrow",
+      "skill_ids": ["razor_leaf", "energy_ball", "vine_whip", "quick_attack"]
+    }
+  ]
+}

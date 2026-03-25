@@ -1,0 +1,87 @@
+{
+  "winner": "player2",
+  "total_turns": 1,
+  "logs": [
+    {
+      "event_type": "battle_start",
+      "player1_creature": "Charizard",
+      "player2_creature": "Blastoise",
+      "turn": 1,
+      "timestamp": "2026-03-25T16:48:42.575926"
+    },
+    {
+      "event_type": "turn_start",
+      "player1_hp": 150,
+      "player2_hp": 158,
+      "turn": 1,
+      "timestamp": "2026-03-25T16:48:42.575930"
+    },
+    {
+      "event_type": "skill_used",
+      "attacker": "player1",
+      "creature": "Charizard",
+      "skill": "Fire Punch",
+      "pp_remaining": 14,
+      "turn": 1,
+      "timestamp": "2026-03-25T16:48:42.575937"
+    },
+    {
+      "event_type": "damage_dealt",
+      "attacker": "player1",
+      "defender": "player2",
+      "damage": 47,
+      "remaining_hp": 111,
+      "turn": 1,
+      "timestamp": "2026-03-25T16:48:42.575943"
+    },
+    {
+      "event_type": "skill_used",
+      "attacker": "player2",
+      "creature": "Blastoise",
+      "skill": "Hydro Pump",
+      "pp_remaining": 4,
+      "turn": 1,
+      "timestamp": "2026-03-25T16:48:42.575947"
+    },
+    {
+      "event_type": "damage_dealt",
+      "attacker": "player2",
+      "defender": "player1",
+      "damage": 330,
+      "remaining_hp": 0,
+      "turn": 1,
+      "timestamp": "2026-03-25T16:48:42.575951"
+    },
+    {
+      "event_type": "creature_fainted",
+      "creature": "Charizard",
+      "player": "player1",
+      "turn": 1,
+      "timestamp": "2026-03-25T16:48:42.575952"
+    },
+    {
+      "event_type": "battle_end",
+      "winner": "player2",
+      "turn": 1,
+      "timestamp": "2026-03-25T16:48:42.575954"
+    }
+  ],
+  "summary": {
+    "total_turns": 1,
+    "total_events": 8,
+    "started_at": "2026-03-25T16:48:42.575922",
+    "ended_at": "2026-03-25T16:48:42.575955"
+  },
+  "final_state": {
+    "player1": {
+      "creature": "Charizard",
+      "hp": 0,
+      "fainted": true
+    },
+    "player2": {
+      "creature": "Blastoise",
+      "hp": 111,
+      "fainted": false
+    }
+  }
+}

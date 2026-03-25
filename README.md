@@ -98,3 +98,39 @@ print(f"総ターン数: {result['total_turns']}")
 ## 📝 ライセンス
 
 MIT License
+
+## 📦 マスタデータ
+
+プロジェクトには10体のクリーチャー、29種類の技、10種類の特性が含まれています。
+
+### 利用可能なクリーチャー
+- **Charizard** (Fire) - 特殊アタッカー
+- **Blastoise** (Water) - バランス型
+- **Venusaur** (Grass) - バランス型
+- **Pikachu** (Electric) - 素早さ型
+- **Lapras** (Water/Ice) - 耐久型
+- **Jolteon** (Electric) - 素早さ特攻型
+- **Snorlax** (Normal) - 物理耐久型
+- **Flareon** (Fire) - 物理アタッカー
+- **Vaporeon** (Water) - 特殊耐久型
+- **Leafeon** (Grass) - 物理防御型
+
+### マスタデータの使い方
+
+```python
+from creature_duel.infrastructure.data.loader import MasterDataLoader
+
+# ローダーを初期化
+loader = MasterDataLoader()
+
+# クリーチャーを取得
+charizard = loader.get_creature("charizard")
+pikachu = loader.get_creature("pikachu")
+
+# バトル実行
+from creature_duel import BattleEngine
+engine = BattleEngine()
+result = engine.execute_battle(charizard, pikachu)
+```
+
+詳細は [docs/master_data_summary.md](docs/master_data_summary.md) を参照してください。

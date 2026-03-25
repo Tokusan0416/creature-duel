@@ -1,0 +1,52 @@
+{
+  "type_chart": {
+    "normal": {
+      "normal": 1.0,
+      "fire": 1.0,
+      "water": 1.0,
+      "grass": 1.0,
+      "electric": 1.0,
+      "ice": 1.0
+    },
+    "fire": {
+      "normal": 1.0,
+      "fire": 0.5,
+      "water": 0.5,
+      "grass": 2.0,
+      "electric": 1.0,
+      "ice": 2.0
+    },
+    "water": {
+      "normal": 1.0,
+      "fire": 2.0,
+      "water": 0.5,
+      "grass": 0.5,
+      "electric": 0.5,
+      "ice": 1.0
+    },
+    "grass": {
+      "normal": 1.0,
+      "fire": 0.5,
+      "water": 2.0,
+      "grass": 0.5,
+      "electric": 1.0,
+      "ice": 0.5
+    },
+    "electric": {
+      "normal": 1.0,
+      "fire": 1.0,
+      "water": 2.0,
+      "grass": 0.5,
+      "electric": 0.5,
+      "ice": 1.0
+    },
+    "ice": {
+      "normal": 1.0,
+      "fire": 0.5,
+      "water": 0.5,
+      "grass": 2.0,
+      "electric": 1.0,
+      "ice": 0.5
+    }
+  }
+}
