@@ -84,8 +84,34 @@ print(f"総ターン数: {result['total_turns']}")
 - ⚪ Phase 3: 計算ロジック実装（未着手）
 - ⚪ Phase 4: バトルシステム実装（未着手）
 - ⚪ Phase 5: BigQuery連携（未着手）
+- ⚪ Phase 6: 🎨 Streamlit UI（未着手）
+- ⚪ Phase 7: テスト・最適化・Double Battle（未着手）
 
 詳細は [ROADMAP.md](ROADMAP.md) を参照してください。
+
+## 🎨 Streamlit UI（Phase 6で実装予定）
+
+WebベースのインタラクティブUIを提供します。
+
+### インストール（Phase 6）
+
+```bash
+pip install -e ".[streamlit]"
+```
+
+### 起動方法
+
+```bash
+streamlit run streamlit_app/app.py
+```
+
+### 提供機能
+- 🎮 **バトル実行** - クリーチャーを選択してバトル実行
+- 📊 **統計分析** - BigQueryデータの可視化
+- 📚 **マスタデータブラウザ** - クリーチャー・技の詳細表示
+- 📜 **バトルログビューワー** - 過去のバトルログ閲覧
+
+詳細は [docs/streamlit_integration_plan.md](docs/streamlit_integration_plan.md) を参照してください。
 
 ## 🛠️ 技術スタック
 

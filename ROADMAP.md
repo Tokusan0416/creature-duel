@@ -80,6 +80,10 @@ creature-duel/
 - [x] 開発環境セットアップ（black, ruff, pytest）
 - [x] ユニットテスト作成（Creature, Stats）
 - [x] デモスクリプト作成（simple_battle.py）
+- [x] **マスタデータ作成（10体、29技、10特性）**
+- [x] **MasterDataLoader実装**
+- [x] **ローダーのテスト作成（12テスト）**
+- [x] **マスタデータ対応デモスクリプト**
 
 #### 実装内容
 - プロジェクト構造の再編成
@@ -263,71 +267,130 @@ creature-duel/
 
 ---
 
-### Phase 6: テスト・データ整備・最適化
+### Phase 6: Streamlit UI 🎨 【新規追加】
 
-**期間**: Week 8-10
+**期間**: Week 8-9
 
 #### タスク
-- [ ] マスタデータ作成
-  - [ ] Creatureデータ（JSON）
-  - [ ] Skillデータ（JSON）
-  - [ ] Abilityデータ（JSON）
-  - [ ] タイプ相性表（JSON）
-- [ ] エンドツーエンドテスト
-  - [ ] JSON読み込み→バトル実行→BigQuery送信
-  - [ ] 複数バトルシナリオ
-- [ ] パフォーマンス最適化
-  - [ ] プロファイリング
-  - [ ] ボトルネック改善
-- [ ] ドキュメント整備
-  - [ ] アーキテクチャドキュメント
-  - [ ] API仕様書
-  - [ ] 運用マニュアル
-- [ ] コードレビュー＆リファクタリング
+- [ ] Streamlitのセットアップ
+  - [ ] pyproject.toml更新（streamlit, plotly追加）
+  - [ ] streamlit_app/ディレクトリ作成
+  - [ ] 基本レイアウト構築
+- [ ] バトル実行ページ
+  - [ ] クリーチャー選択UI（2体）
+  - [ ] バトル実行ボタン
+  - [ ] リアルタイムバトルログ表示
+  - [ ] ターン毎のHP推移グラフ
+  - [ ] 最終結果表示
+- [ ] 統計・分析ページ
+  - [ ] BigQueryからデータ取得
+  - [ ] 勝率分析（クリーチャー別、タイプ別）
+  - [ ] ダメージ統計の可視化
+  - [ ] 平均ターン数の分析
+- [ ] マスタデータブラウザ
+  - [ ] クリーチャー一覧表示
+  - [ ] スキル詳細表示
+  - [ ] タイプ相性表の可視化
+- [ ] バトルログビューワー
+  - [ ] 過去のバトルログ検索
+  - [ ] ログの再生機能
+  - [ ] JSON出力
 
 #### 実装ファイル
-- `infrastructure/data/creatures.json`
-- `infrastructure/data/skills.json`
-- `infrastructure/data/abilities.json`
-- `infrastructure/data/type_chart.json`
-- `docs/architecture.md`
-- `docs/battle_flow.md`
-- `docs/bigquery_schema.md`
+- `streamlit_app/app.py` - メインアプリ
+- `streamlit_app/pages/1_🎮_battle.py` - バトル実行
+- `streamlit_app/pages/2_📊_analytics.py` - 統計分析
+- `streamlit_app/pages/3_📚_master_data.py` - マスタデータ
+- `streamlit_app/pages/4_📜_battle_logs.py` - ログビューワー
+- `streamlit_app/utils/visualization.py` - 可視化ヘルパー
+- `streamlit_app/utils/formatters.py` - フォーマット関数
+
+#### UI機能
+- サイドバーでページ切り替え
+- カラフルな統計グラフ（Plotly使用）
+- インタラクティブなテーブル
+- バトルログのアニメーション表示
+- リアルタイムデータ更新
+
+#### セットアップコマンド
+```bash
+# Streamlitアプリ起動
+streamlit run streamlit_app/app.py
+
+# ブラウザで http://localhost:8501 が開く
+```
 
 ---
 
-## 🔮 将来の拡張（Phase 7以降）
+### Phase 7: テスト・最適化・Double Battle
 
-### Double Battle実装
-- [ ] 2対2のバトルステート管理
-- [ ] 複数ターゲット処理
-- [ ] Speed順の複雑な制御
+**期間**: Week 9-11
+
+#### タスク
+- [ ] エンドツーエンドテスト
+  - [ ] JSON読み込み→バトル実行→BigQuery送信
+  - [ ] 複数バトルシナリオ
+  - [ ] Streamlit UIのテスト
+- [ ] パフォーマンス最適化
+  - [ ] プロファイリング
+  - [ ] ボトルネック改善
+  - [ ] BigQueryクエリ最適化
+- [ ] Double Battle実装
+  - [ ] 2対2のバトルステート管理
+  - [ ] 複数ターゲット処理
+  - [ ] Speed順の複雑な制御
+  - [ ] StreamlitでのDouble Battle UI
+- [ ] ドキュメント整備
+  - [ ] アーキテクチャドキュメント
+  - [ ] API仕様書
+  - [ ] Streamlit使い方ガイド
+- [ ] コードレビュー＆リファクタリング
+
+#### 実装ファイル
+- `docs/architecture.md`
+- `docs/streamlit_guide.md`
+- `docs/bigquery_schema.md`
+- `battle/double_battle_engine.py`
+
+---
+
+## 🔮 将来の拡張（Phase 8以降）
 
 ### マスタデータのBigQuery管理
 - [ ] BigQueryからのマスタ読み込み
 - [ ] キャッシュ機構
+- [ ] バージョニングシステム
 
 ### REST API化
 - [ ] FastAPIの導入
 - [ ] バトル実行API
 - [ ] ログ取得API
+- [ ] Streamlitとの連携
 
 ### 機械学習連携
-- [ ] バトルデータの分析
+- [ ] バトルデータの分析（Streamlit上で実行）
 - [ ] 勝率予測モデル
 - [ ] 最適なパーティ編成の提案
+- [ ] 予測結果のStreamlit表示
+
+### 高度なUI機能
+- [ ] バトルアニメーション
+- [ ] リアルタイム対戦（WebSocket）
+- [ ] ユーザー認証
+- [ ] バトル履歴の保存
 
 ---
 
 ## 📊 進捗トラッキング
 
 ### 全体進捗
-- Phase 1: ✅ 完了 (100%)
-- Phase 2: ⚪ 未着手 (0%)
-- Phase 3: ⚪ 未着手 (0%)
-- Phase 4: ⚪ 未着手 (0%)
-- Phase 5: ⚪ 未着手 (0%)
-- Phase 6: ⚪ 未着手 (0%)
+- Phase 1: ✅ 完了 (100%) - 基礎構築+マスタデータ
+- Phase 2: ⚪ 未着手 (0%) - ドメインモデル拡張
+- Phase 3: ⚪ 未着手 (0%) - 計算ロジック実装
+- Phase 4: ⚪ 未着手 (0%) - バトルシステム実装
+- Phase 5: ⚪ 未着手 (0%) - BigQuery連携
+- Phase 6: ⚪ 未着手 (0%) - 🎨 Streamlit UI
+- Phase 7: ⚪ 未着手 (0%) - テスト・最適化・Double Battle
 
 ### 直近の更新
 - 2026-03-23 18:30: マスタデータ作成完了 - 10体のクリーチャー、29種類の技、10種類の特性、タイプ相性表、ローダークラス実装（テスト22個合格）
