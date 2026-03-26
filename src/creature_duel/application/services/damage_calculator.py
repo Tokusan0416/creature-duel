@@ -2,7 +2,10 @@ import random
 from creature_duel.domain.entities.creature import Creature
 from creature_duel.domain.entities.skill import Skill
 from creature_duel.domain.enums.move_category import MoveCategory
-from creature_duel.domain.value_objects.type import get_type_multiplier
+from creature_duel.application.services.type_effectiveness import TypeEffectivenessService
+
+# タイプ相性サービス（モジュールレベルでシングルトン的に使用）
+_type_service = TypeEffectivenessService()
 
 
 def calculate_damage(attacker: Creature, defender: Creature, skill: Skill) -> int:
@@ -42,7 +45,7 @@ def calculate_damage(attacker: Creature, defender: Creature, skill: Skill) -> in
     base_damage = attack * skill.power / defence
 
     # タイプ相性
-    type_effectiveness = get_type_multiplier(skill.type, defender.types)
+    type_effectiveness = _type_service.get_type_multiplier(skill.type, defender.types)
 
     # タイプ一致ボーナス (STAB: Same Type Attack Bonus)
     stab = 1.0

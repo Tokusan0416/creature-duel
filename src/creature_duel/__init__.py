@@ -13,7 +13,7 @@ from creature_duel.domain.entities.skill import Skill
 
 # Domain value objects
 from creature_duel.domain.value_objects.stats import Stats, BattleStats
-from creature_duel.domain.value_objects.type import Type, get_type_multiplier
+from creature_duel.domain.value_objects.type import Type
 
 # Domain enums
 from creature_duel.domain.enums.move_category import MoveCategory
@@ -32,7 +32,6 @@ __all__ = [
     "Stats",
     "BattleStats",
     "Type",
-    "get_type_multiplier",
     # Enums
     "MoveCategory",
     # Battle

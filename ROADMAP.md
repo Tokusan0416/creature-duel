@@ -1,6 +1,6 @@
 # Creature Duel - Development Roadmap
 
-最終更新: 2026-03-23 (Phase 1完了)
+最終更新: 2026-03-26 (Phase 2完了)
 
 ## 📋 プロジェクト概要
 
@@ -114,41 +114,61 @@ creature-duel/
 
 ---
 
-### Phase 2: ドメインモデル拡張
+### Phase 2: ドメインモデル拡張 ✅ [完了]
 
-**期間**: Week 2-3
+**期間**: Week 2 (2026-03-26)
 
-#### タスク
-- [ ] Statsクラスの拡張
-  - [ ] Evasion, Accuracy, Critical Hit Rate追加
-  - [ ] 能力ランク（-6 ~ +6段階）の追加
-- [ ] StatModifiers実装
-  - [ ] ランク→倍率変換
-  - [ ] HP依存のAttack/Sp.Attack補正
-- [ ] StatusAilment実装
-  - [ ] 6種類の状態異常（毒、火傷、氷、眠り、まひ、混乱）
-  - [ ] ターン開始時/終了時の処理
-- [ ] Ability実装
-  - [ ] Abilityエンティティ作成
-  - [ ] 発動トリガーシステム
-  - [ ] 基本的なAbility 5-10種類
-    - もうか、げきりゅう、しんりょく
-    - いかく、ふみん、めんえき
-    - せいでんき、ほのおのからだ等
-- [ ] Playerエンティティ実装
-  - [ ] 6体のCreature管理
-  - [ ] 現在のCreature切り替え
-- [ ] タイプ相性表の完全実装（6タイプ）
-- [ ] ユニットテスト作成
+#### 完了項目
+- [x] **タイプ相性表のJSON統一**
+  - [x] type.pyから重複コードを削除
+  - [x] TypeEffectivenessService実装（JSON読み込み方式）
+  - [x] damage_calculator.pyを新サービス対応に修正
+- [x] **StatusAilment実装**
+  - [x] 6種類の状態異常（毒、火傷、氷、眠り、まひ、混乱）
+  - [x] ターン開始時/終了時の処理
+  - [x] Creatureへの状態異常統合
+- [x] **Abilityシステム実装**
+  - [x] Abilityエンティティ作成
+  - [x] 発動トリガーシステム（on_attack, on_hit, on_switch_in, passive）
+  - [x] MasterDataLoaderのAbility対応
+  - [x] 10種類の特性サポート
+- [x] **Playerエンティティ実装**
+  - [x] 6体のCreature管理
+  - [x] 現在のCreature切り替え
+  - [x] 全滅判定
+- [x] **StatModifierサービス実装**
+  - [x] 能力ランク変更
+  - [x] HP依存の補正計算
+  - [x] 状態異常による補正
+  - [x] 実効素早さ計算
+- [x] **ユニットテスト作成（全82テスト）**
 
-#### 実装ファイル
-- `domain/entities/ability.py`
-- `domain/entities/player.py`
-- `domain/value_objects/stat_modifiers.py`
-- `domain/value_objects/status_ailment.py`
-- `domain/enums/move_category.py`
-- `domain/enums/battle_mode.py`
-- `domain/enums/ailment_type.py`
+#### 実装内容
+- タイプ相性表をtype_chart.jsonに統一（データ駆動設計）
+- 6種類の状態異常とその効果を完全実装
+- 10種類のAbilityをサポート（JSON駆動）
+- Playerエンティティで最大6体のCreature管理
+- 能力値補正の一元管理（StatModifierService）
+
+#### 実装されたファイル
+- `src/creature_duel/application/services/type_effectiveness.py` - タイプ相性計算
+- `src/creature_duel/application/services/stat_modifier_service.py` - 能力値補正
+- `src/creature_duel/domain/entities/ability.py` - Abilityエンティティ
+- `src/creature_duel/domain/entities/player.py` - Playerエンティティ
+- `src/creature_duel/domain/value_objects/status_ailment.py` - StatusAilment
+- `src/creature_duel/domain/enums/ailment_type.py` - 状態異常タイプ
+- `tests/unit/application/test_type_effectiveness.py` - タイプ相性テスト（4テスト）
+- `tests/unit/application/test_stat_modifier_service.py` - 能力補正テスト（11テスト）
+- `tests/unit/domain/test_ability.py` - Abilityテスト（9テスト）
+- `tests/unit/domain/test_player.py` - Playerテスト（13テスト）
+- `tests/unit/domain/test_status_ailment.py` - StatusAilmentテスト（17テスト）
+- `tests/unit/domain/test_creature.py` - Creatureテスト更新（+6テスト）
+
+#### 動作確認
+- 全テスト合格（82/82）
+- StatusAilmentの動作確認（毒、火傷のダメージ処理）
+- Abilityの読み込み確認
+- Player管理機能の確認
 
 ---
 
@@ -385,7 +405,7 @@ streamlit run streamlit_app/app.py
 
 ### 全体進捗
 - Phase 1: ✅ 完了 (100%) - 基礎構築+マスタデータ
-- Phase 2: ⚪ 未着手 (0%) - ドメインモデル拡張
+- Phase 2: ✅ 完了 (100%) - ドメインモデル拡張
 - Phase 3: ⚪ 未着手 (0%) - 計算ロジック実装
 - Phase 4: ⚪ 未着手 (0%) - バトルシステム実装
 - Phase 5: ⚪ 未着手 (0%) - BigQuery連携
@@ -393,6 +413,7 @@ streamlit run streamlit_app/app.py
 - Phase 7: ⚪ 未着手 (0%) - テスト・最適化・Double Battle
 
 ### 直近の更新
+- 2026-03-26: Phase 2完了 - StatusAilment、Ability、Player、StatModifierサービス実装（テスト82個合格）
 - 2026-03-23 18:30: マスタデータ作成完了 - 10体のクリーチャー、29種類の技、10種類の特性、タイプ相性表、ローダークラス実装（テスト22個合格）
 - 2026-03-23 17:00: Phase 1完了 - 基本バトルシステム動作確認、全テスト合格
 - 2026-03-23 10:00: プロジェクト開始、ROADMAP.md作成

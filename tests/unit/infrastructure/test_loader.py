@@ -61,8 +61,9 @@ def test_load_abilities(loader):
 
     # Blazeの詳細チェック
     blaze = abilities["blaze"]
-    assert blaze["name"] == "Blaze"
-    assert blaze["trigger"] == "on_attack"
+    assert blaze.name == "Blaze"
+    assert blaze.trigger.value == "on_attack"
+    assert blaze.is_type_boost() is True
 
 
 def test_load_type_chart(loader):

@@ -2,7 +2,9 @@ import pytest
 from creature_duel.domain.entities.creature import Creature
 from creature_duel.domain.entities.skill import Skill
 from creature_duel.domain.value_objects.stats import Stats
+from creature_duel.domain.value_objects.status_ailment import StatusAilment
 from creature_duel.domain.value_objects.type import Type
+from creature_duel.domain.enums.ailment_type import AilmentType
 from creature_duel.domain.enums.move_category import MoveCategory
 
 
@@ -111,3 +113,81 @@ def test_get_available_skills(sample_creature):
 
     available = sample_creature.get_available_skills()
     assert len(available) == 0
+
+
+def test_apply_status_ailment(sample_creature):
+    """状態異常の適用テスト"""
+    ailment = StatusAilment(AilmentType.POISON)
+    result = sample_creature.apply_status_ailment(ailment)
+
+    assert result is True
+    assert sample_creature.has_status_ailment() is True
+    assert sample_creature.status_ailment == ailment
+
+
+def test_apply_status_ailment_already_has_ailment(sample_creature):
+    """既に状態異常がある場合のテスト"""
+    ailment1 = StatusAilment(AilmentType.POISON)
+    ailment2 = StatusAilment(AilmentType.BURN)
+
+    sample_creature.apply_status_ailment(ailment1)
+    result = sample_creature.apply_status_ailment(ailment2)
+
+    assert result is False
+    assert sample_creature.status_ailment == ailment1
+
+
+def test_clear_status_ailment(sample_creature):
+    """状態異常の解除テスト"""
+    ailment = StatusAilment(AilmentType.POISON)
+    sample_creature.apply_status_ailment(ailment)
+
+    assert sample_creature.has_status_ailment() is True
+
+    sample_creature.clear_status_ailment()
+
+    assert sample_creature.has_status_ailment() is False
+    assert sample_creature.status_ailment is None
+
+
+def test_process_status_ailment_turn_end_poison(sample_creature):
+    """毒状態のターン終了時処理テスト"""
+    ailment = StatusAilment(AilmentType.POISON)
+    sample_creature.apply_status_ailment(ailment)
+
+    # ターン終了時処理
+    damage = sample_creature.process_status_ailment_turn_end()
+
+    # 最大HPの1/8のダメージ（100 * 0.125 = 12.5 → 12）
+    assert damage == 12
+    assert sample_creature.battle_stats.current_hp == 88
+
+
+def test_process_status_ailment_turn_end_burn(sample_creature):
+    """火傷状態のターン終了時処理テスト"""
+    ailment = StatusAilment(AilmentType.BURN)
+    sample_creature.apply_status_ailment(ailment)
+
+    damage = sample_creature.process_status_ailment_turn_end()
+
+    # 最大HPの1/16のダメージ（100 * 0.0625 = 6.25 → 6）
+    assert damage == 6
+    assert sample_creature.battle_stats.current_hp == 94
+
+
+def test_process_status_ailment_turn_end_with_duration(sample_creature):
+    """ターン制限付き状態異常のテスト"""
+    ailment = StatusAilment(AilmentType.SLEEP, turns_remaining=2)
+    sample_creature.apply_status_ailment(ailment)
+
+    # 1ターン目（ダメージなし、継続）
+    damage1 = sample_creature.process_status_ailment_turn_end()
+    assert damage1 == 0
+    assert sample_creature.has_status_ailment() is True
+    assert sample_creature.status_ailment is not None
+    assert sample_creature.status_ailment.turns_remaining == 1
+
+    # 2ターン目（解除）
+    damage2 = sample_creature.process_status_ailment_turn_end()
+    assert damage2 == 0
+    assert sample_creature.has_status_ailment() is False

@@ -10,6 +10,7 @@ from typing import Dict, List, Optional
 
 from creature_duel.domain.entities.creature import Creature
 from creature_duel.domain.entities.skill import Skill
+from creature_duel.domain.entities.ability import Ability
 from creature_duel.domain.value_objects.stats import Stats
 from creature_duel.domain.value_objects.type import Type
 from creature_duel.domain.enums.move_category import MoveCategory
@@ -33,7 +34,7 @@ class MasterDataLoader:
         # キャッシュ
         self._skills: Optional[Dict[str, Skill]] = None
         self._creatures: Optional[Dict[str, Creature]] = None
-        self._abilities: Optional[Dict[str, dict]] = None
+        self._abilities: Optional[Dict[str, Ability]] = None
         self._type_chart: Optional[Dict[str, Dict[str, float]]] = None
 
     def load_skills(self) -> Dict[str, Skill]:
@@ -117,12 +118,12 @@ class MasterDataLoader:
         self._creatures = creatures
         return creatures
 
-    def load_abilities(self) -> Dict[str, dict]:
+    def load_abilities(self) -> Dict[str, Ability]:
         """
         アビリティマスタを読み込む
 
         Returns:
-            アビリティID -> アビリティ設定の辞書
+            アビリティID -> Abilityオブジェクトの辞書
         """
         if self._abilities is not None:
             return self._abilities
@@ -133,7 +134,8 @@ class MasterDataLoader:
 
         abilities = {}
         for ability_data in data["abilities"]:
-            abilities[ability_data["id"]] = ability_data
+            ability = Ability.from_dict(ability_data)
+            abilities[ability.id] = ability
 
         self._abilities = abilities
         return abilities
@@ -191,7 +193,7 @@ class MasterDataLoader:
             raise KeyError(f"Skill '{skill_id}' not found")
         return skills[skill_id]
 
-    def get_ability(self, ability_id: str) -> dict:
+    def get_ability(self, ability_id: str) -> Ability:
         """
         IDでアビリティを取得
 
@@ -199,7 +201,7 @@ class MasterDataLoader:
             ability_id: アビリティID
 
         Returns:
-            アビリティ設定の辞書
+            Abilityオブジェクト
 
         Raises:
             KeyError: 指定されたIDのアビリティが存在しない
