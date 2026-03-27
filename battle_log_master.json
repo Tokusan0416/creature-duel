@@ -1,5 +1,5 @@
 {
-  "winner": "player2",
+  "winner": "player1",
   "total_turns": 1,
   "logs": [
     {
@@ -7,81 +7,63 @@
       "player1_creature": "Charizard",
       "player2_creature": "Blastoise",
       "turn": 1,
-      "timestamp": "2026-03-26T13:58:32.859300"
+      "timestamp": "2026-03-27T11:14:33.072224"
     },
     {
       "event_type": "turn_start",
       "player1_hp": 150,
       "player2_hp": 158,
       "turn": 1,
-      "timestamp": "2026-03-26T13:58:32.859303"
+      "timestamp": "2026-03-27T11:14:33.072227"
     },
     {
       "event_type": "skill_used",
       "attacker": "player1",
       "creature": "Charizard",
-      "skill": "Fire Punch",
-      "pp_remaining": 14,
+      "skill": "Overheat",
+      "pp_remaining": 4,
       "turn": 1,
-      "timestamp": "2026-03-26T13:58:32.859310"
+      "timestamp": "2026-03-27T11:14:33.072234"
     },
     {
       "event_type": "damage_dealt",
       "attacker": "player1",
       "defender": "player2",
-      "damage": 47,
-      "remaining_hp": 111,
-      "turn": 1,
-      "timestamp": "2026-03-26T13:58:32.859368"
-    },
-    {
-      "event_type": "skill_used",
-      "attacker": "player2",
-      "creature": "Blastoise",
-      "skill": "Hydro Pump",
-      "pp_remaining": 4,
-      "turn": 1,
-      "timestamp": "2026-03-26T13:58:32.859372"
-    },
-    {
-      "event_type": "damage_dealt",
-      "attacker": "player2",
-      "defender": "player1",
-      "damage": 330,
+      "damage": 202,
       "remaining_hp": 0,
       "turn": 1,
-      "timestamp": "2026-03-26T13:58:32.859377"
+      "timestamp": "2026-03-27T11:14:33.072360"
     },
     {
       "event_type": "creature_fainted",
-      "creature": "Charizard",
-      "player": "player1",
+      "creature": "Blastoise",
+      "player": "player2",
       "turn": 1,
-      "timestamp": "2026-03-26T13:58:32.859378"
+      "timestamp": "2026-03-27T11:14:33.072362"
     },
     {
       "event_type": "battle_end",
-      "winner": "player2",
+      "winner": "player1",
       "turn": 1,
-      "timestamp": "2026-03-26T13:58:32.859380"
+      "timestamp": "2026-03-27T11:14:33.072364"
     }
   ],
   "summary": {
     "total_turns": 1,
-    "total_events": 8,
-    "started_at": "2026-03-26T13:58:32.859297",
-    "ended_at": "2026-03-26T13:58:32.859381"
+    "total_events": 6,
+    "started_at": "2026-03-27T11:14:33.072218",
+    "ended_at": "2026-03-27T11:14:33.072366"
   },
   "final_state": {
     "player1": {
       "creature": "Charizard",
-      "hp": 0,
-      "fainted": true
+      "hp": 150,
+      "fainted": false
     },
     "player2": {
       "creature": "Blastoise",
-      "hp": 111,
-      "fainted": false
+      "hp": 0,
+      "fainted": true
     }
   }
 }

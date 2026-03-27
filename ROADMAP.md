@@ -172,34 +172,53 @@ creature-duel/
 
 ---
 
-### Phase 3: 計算ロジック実装
+### Phase 3: 計算ロジック実装 ✅ [完了]
 
-**期間**: Week 3-4
+**期間**: Week 3 (2026-03-27)
 
-#### タスク
-- [ ] ダメージ計算の改善
-  - [ ] HP依存の補正（50%以下、25%以下）
-  - [ ] 能力ランクの適用
-  - [ ] STABボーナス（1タイプ/2タイプ対応）
-  - [ ] Abilityによる補正
-- [ ] 命中判定の実装
-  - [ ] Accuracy × Evasionの計算
-  - [ ] スキル命中判定
-- [ ] クリティカルヒットの実装
-  - [ ] 変動するCritical Rate対応
-- [ ] タイプ相性サービス
-  - [ ] 6タイプの完全な相性表
-  - [ ] 2倍、0.5倍、0.25倍、0倍の判定
-- [ ] StatModifierサービス
-  - [ ] 能力変化の適用
-  - [ ] 上限・下限チェック
-- [ ] ユニットテスト作成
+#### 完了項目
+- [x] **ダメージ計算の改善**
+  - [x] HP依存の補正（50%以下、25%以下）- Phase 1で実装済み
+  - [x] 能力ランクの適用 - Phase 1で実装済み
+  - [x] STABボーナス（1タイプ/2タイプ対応）- Phase 1で実装済み
+  - [x] **Abilityによる補正（もうか、げきりゅう、しんりょく等）**
+  - [x] **状態異常による攻撃力補正（火傷で物理攻撃半減）**
+- [x] **命中判定の実装** - Phase 1で実装済み
+  - [x] Accuracy × Evasionの計算
+  - [x] スキル命中判定
+- [x] **クリティカルヒットの実装** - Phase 1で実装済み
+  - [x] 変動するCritical Rate対応
+- [x] **タイプ相性サービス** - Phase 2で実装済み
+  - [x] 6タイプの完全な相性表
+  - [x] 2倍、0.5倍、0.25倍、4倍の判定
+- [x] **StatModifierサービス** - Phase 2で実装済み
+  - [x] 能力変化の適用
+  - [x] 上限・下限チェック
+- [x] **包括的なユニットテスト作成（全89テスト）**
 
-#### 実装ファイル
-- `application/services/damage_calculator.py` (改善)
-- `application/services/accuracy_calculator.py`
-- `application/services/type_effectiveness.py`
-- `application/services/stat_modifier_service.py`
+#### 実装内容
+- damage_calculatorにAbility補正を統合（もうか、げきりゅう、しんりょく）
+- 状態異常による攻撃力補正を適用（火傷で物理攻撃半減）
+- StatModifierServiceを活用した補正計算
+- 包括的なテストカバレッジの実現
+
+#### 実装されたファイル
+- `src/creature_duel/application/services/damage_calculator.py` - Ability補正・状態異常補正追加
+- `tests/unit/application/test_damage_calculator.py` - ダメージ計算テスト（7テスト）
+
+#### 動作確認
+- 全テスト合格（89/89）
+- Ability補正の動作確認（もうか特性でダメージ1.5倍）
+- 状態異常補正の動作確認（火傷で物理攻撃半減）
+- デモスクリプトで統合動作確認
+
+#### 備考
+Phase 3の多くの機能はPhase 1とPhase 2で既に実装済みでした：
+- HP依存の補正、能力ランク、STAB、クリティカルヒット（Phase 1）
+- タイプ相性サービス、StatModifierサービス（Phase 2）
+
+Phase 3では残りの部分（Ability補正、状態異常補正）を実装し、
+包括的なテストで全機能を検証しました。
 
 ---
 
@@ -406,13 +425,14 @@ streamlit run streamlit_app/app.py
 ### 全体進捗
 - Phase 1: ✅ 完了 (100%) - 基礎構築+マスタデータ
 - Phase 2: ✅ 完了 (100%) - ドメインモデル拡張
-- Phase 3: ⚪ 未着手 (0%) - 計算ロジック実装
+- Phase 3: ✅ 完了 (100%) - 計算ロジック実装
 - Phase 4: ⚪ 未着手 (0%) - バトルシステム実装
 - Phase 5: ⚪ 未着手 (0%) - BigQuery連携
 - Phase 6: ⚪ 未着手 (0%) - 🎨 Streamlit UI
 - Phase 7: ⚪ 未着手 (0%) - テスト・最適化・Double Battle
 
 ### 直近の更新
+- 2026-03-27: Phase 3完了 - Ability補正・状態異常補正を実装、包括的なテスト作成（テスト89個合格）
 - 2026-03-26: Phase 2完了 - StatusAilment、Ability、Player、StatModifierサービス実装（テスト82個合格）
 - 2026-03-23 18:30: マスタデータ作成完了 - 10体のクリーチャー、29種類の技、10種類の特性、タイプ相性表、ローダークラス実装（テスト22個合格）
 - 2026-03-23 17:00: Phase 1完了 - 基本バトルシステム動作確認、全テスト合格
