@@ -228,6 +228,9 @@ def test_calculate_damage_with_ability_blaze():
         name="Defender", types=[Type.NORMAL], base_stats=defender_stats, skills=[defender_skill]
     )
 
+    # クリティカル率を0にして安定化
+    attacker.battle_stats.critical_rate = 0.0
+
     # HP満タン時
     damage_full_hp = calculate_damage(attacker, defender, fire_skill)
 
@@ -237,7 +240,9 @@ def test_calculate_damage_with_ability_blaze():
     # もうか発動時
     damage_blaze = calculate_damage(attacker, defender, fire_skill)
 
-    # もうかでダメージ増加（1.5倍）
+    # もうかでダメージ増加
+    # HP満タン時: base * 1.0 (HP補正) * 1.0 (Ability) = base
+    # HP 33%時: base * 1.25 (HP補正) * 1.5 (Ability) = base * 1.875
     assert damage_blaze > damage_full_hp
 
 

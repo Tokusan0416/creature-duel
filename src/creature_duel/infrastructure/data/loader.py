@@ -60,6 +60,7 @@ class MasterDataLoader:
                 power=skill_data["power"],
                 accuracy=skill_data["accuracy"],
                 max_pp=skill_data["max_pp"],
+                effects=skill_data.get("effects", []),
             )
             skills[skill_data["id"]] = skill
 

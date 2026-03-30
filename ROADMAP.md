@@ -1,6 +1,6 @@
 # Creature Duel - Development Roadmap
 
-最終更新: 2026-03-26 (Phase 2完了)
+最終更新: 2026-03-30 (Phase 4完了)
 
 ## 📋 プロジェクト概要
 
@@ -222,93 +222,87 @@ Phase 3では残りの部分（Ability補正、状態異常補正）を実装し
 
 ---
 
-### Phase 4: バトルシステム実装
+### Phase 4: バトルシステム実装 ✅ [完了]
 
-**期間**: Week 5-7
+**期間**: Week 5-7 (2026-03-30)
 
-#### タスク
-- [ ] Skill実行エンジン
-  - [ ] PP消費管理
-  - [ ] 命中判定
-  - [ ] ダメージ適用
-  - [ ] Effect適用（状態異常、能力変化）
-- [ ] ターン処理
-  - [ ] Speed順の決定
-  - [ ] ターン開始時処理
-  - [ ] スキルのランダム選択（PP考慮）
-  - [ ] スキル実行
-  - [ ] ターン終了時処理
-  - [ ] 戦闘不能チェック
-- [ ] バトルエンジン
-  - [ ] バトル初期化
-  - [ ] ターンループ制御
-  - [ ] 勝敗判定
-  - [ ] 次Creature投入
-- [ ] バトルログシステム
-  - [ ] ログイベント定義
-  - [ ] ターン毎のログ記録
-  - [ ] JSON形式の出力
-- [ ] Single Battle完全実装
-- [ ] 統合テスト作成
+#### 完了項目
+- [x] **Skill実行エンジン**
+  - [x] PP消費管理
+  - [x] 命中判定
+  - [x] ダメージ適用
+  - [x] Effect適用（状態異常、能力変化）
+- [x] **ターン処理**
+  - [x] Speed順の決定（状態異常による素早さ補正含む）
+  - [x] ターン開始時処理
+  - [x] スキルのランダム選択（PP考慮）
+  - [x] スキル実行（SkillExecutor統合）
+  - [x] ターン終了時処理（状態異常ダメージ処理）
+  - [x] 戦闘不能チェック
+- [x] **バトルエンジン**
+  - [x] バトル初期化
+  - [x] ターンループ制御
+  - [x] 勝敗判定
+- [x] **バトルログシステム**
+  - [x] ログイベント定義
+  - [x] ターン毎のログ記録
+  - [x] JSON形式の出力
+- [x] **Single Battle完全実装**
+- [x] **統合テスト作成（8テスト）**
+- [x] **ユニットテスト作成（全103テスト）**
 
-#### 実装ファイル
-- `battle/skill_executor.py`
-- `battle/turn_processor.py` (改善)
-- `battle/battle_engine.py` (改善)
-- `battle/battle_logger.py`
-- `battle/battle_state.py` (改善)
+#### 実装内容
+- SkillExecutorパターンで技実行ロジックを一元化
+- Effect適用システムを実装（状態異常、能力変化）
+- TurnProcessorに状態異常処理を統合
+- 包括的な統合テストでバトルシステム全体を検証
 
-#### ログイベント種類
-- turn_start
-- skill_used
-- damage_dealt
-- ailment_applied
-- stat_changed
-- creature_fainted
-- creature_switched
-- battle_end
+#### 実装されたファイル
+- `src/creature_duel/battle/skill_executor.py` - スキル実行エンジン
+- `src/creature_duel/battle/turn_processor.py` - ターン処理（状態異常処理追加）
+- `src/creature_duel/battle/battle_engine.py` - バトルエンジン（既存）
+- `src/creature_duel/battle/battle_state.py` - バトル状態管理（既存）
+- `src/creature_duel/domain/entities/skill.py` - effectsフィールド追加
+- `src/creature_duel/infrastructure/data/loader.py` - effects読み込み対応
+- `tests/unit/battle/test_skill_executor.py` - SkillExecutorテスト（6テスト）
+- `tests/integration/test_battle_integration.py` - 統合テスト（8テスト）
+
+#### 実装されたログイベント種類
+- battle_start - バトル開始
+- turn_start - ターン開始
+- skill_used - 技使用
+- skill_missed - 技外れ
+- damage_dealt - ダメージ発生
+- effect_applied - Effect適用（状態異常、能力変化）
+- ailment_damage - 状態異常ダメージ
+- cannot_move - 行動不能（氷、眠り）
+- no_pp - PP切れ
+- creature_fainted - 戦闘不能
+- battle_end - バトル終了
+
+#### 動作確認
+- 全テスト合格（103/103）
+  - ユニットテスト: 95テスト
+  - 統合テスト: 8テスト
+- 状態異常付与とターン終了時ダメージの動作確認
+- 能力変化Effectの動作確認
+- タイプ相性、特性、状態異常を含む包括的なバトルテスト成功
+- 最大ターン到達時の勝敗判定確認
+
+#### 備考
+Phase 4ではバトルシステムの完全実装を達成しました：
+- SkillExecutorにより技実行ロジックを集約し、保守性向上
+- Effect適用システムにより拡張性の高い技システムを実現
+- 状態異常のターン終了時処理を完全実装
+- 包括的な統合テストでシステム全体の動作を保証
+
+制約により「次Creature投入」機能は実装していません（Creatureの交代は仕様上不可）。
 
 ---
 
-### Phase 5: BigQuery連携
+### Phase 5: Streamlit UI 🎨
 
 **期間**: Week 7-8
-
-#### タスク
-- [ ] BigQueryスキーマ設計
-  - [ ] battlesテーブル
-  - [ ] battle_logsテーブル
-  - [ ] battle_creaturesテーブル
-- [ ] BigQueryクライアント実装
-  - [ ] 認証設定
-  - [ ] 接続テスト
-- [ ] バトルログのエクスポート
-  - [ ] JSON→BigQueryマッピング
-  - [ ] バッチ挿入機能
-  - [ ] エラーハンドリング
-- [ ] リポジトリ実装
-  - [ ] BattleLogRepository
-  - [ ] JSON出力機能
-- [ ] 統合テスト作成
-
-#### 実装ファイル
-- `infrastructure/bigquery/client.py`
-- `infrastructure/bigquery/schema.py`
-- `infrastructure/bigquery/repository.py`
-- `application/use_cases/export_battle_log.py`
-
-#### BigQueryテーブル構造
-```sql
--- battles: バトル基本情報
--- battle_logs: ターン毎のイベントログ
--- battle_creatures: 参加Creatureの統計情報
-```
-
----
-
-### Phase 6: Streamlit UI 🎨 【新規追加】
-
-**期間**: Week 8-9
 
 #### タスク
 - [ ] Streamlitのセットアップ
@@ -321,28 +315,30 @@ Phase 3では残りの部分（Ability補正、状態異常補正）を実装し
   - [ ] リアルタイムバトルログ表示
   - [ ] ターン毎のHP推移グラフ
   - [ ] 最終結果表示
-- [ ] 統計・分析ページ
-  - [ ] BigQueryからデータ取得
-  - [ ] 勝率分析（クリーチャー別、タイプ別）
-  - [ ] ダメージ統計の可視化
-  - [ ] 平均ターン数の分析
 - [ ] マスタデータブラウザ
   - [ ] クリーチャー一覧表示
   - [ ] スキル詳細表示
   - [ ] タイプ相性表の可視化
+  - [ ] 特性一覧表示
 - [ ] バトルログビューワー
-  - [ ] 過去のバトルログ検索
+  - [ ] ローカルバトルログ表示
   - [ ] ログの再生機能
   - [ ] JSON出力
+- [ ] 統計・分析ページ（ローカルデータ）
+  - [ ] ローカルバトルログの集計
+  - [ ] 勝率分析（クリーチャー別、タイプ別）
+  - [ ] ダメージ統計の可視化
+  - [ ] 平均ターン数の分析
 
 #### 実装ファイル
 - `streamlit_app/app.py` - メインアプリ
 - `streamlit_app/pages/1_🎮_battle.py` - バトル実行
-- `streamlit_app/pages/2_📊_analytics.py` - 統計分析
-- `streamlit_app/pages/3_📚_master_data.py` - マスタデータ
-- `streamlit_app/pages/4_📜_battle_logs.py` - ログビューワー
+- `streamlit_app/pages/2_📚_master_data.py` - マスタデータ
+- `streamlit_app/pages/3_📜_battle_logs.py` - ログビューワー
+- `streamlit_app/pages/4_📊_analytics.py` - 統計分析（ローカル）
 - `streamlit_app/utils/visualization.py` - 可視化ヘルパー
 - `streamlit_app/utils/formatters.py` - フォーマット関数
+- `streamlit_app/utils/battle_runner.py` - バトル実行ヘルパー
 
 #### UI機能
 - サイドバーでページ切り替え
@@ -359,37 +355,87 @@ streamlit run streamlit_app/app.py
 # ブラウザで http://localhost:8501 が開く
 ```
 
+#### 備考
+Phase 5ではローカルデータのみを扱います。BigQuery連携はPhase 6で実装し、Phase 5のUIに統合します。
+
+---
+
+### Phase 6: BigQuery連携
+
+**期間**: Week 9-10
+
+#### タスク
+- [ ] BigQueryスキーマ設計
+  - [ ] battlesテーブル
+  - [ ] battle_logsテーブル
+  - [ ] battle_creaturesテーブル
+- [ ] BigQueryクライアント実装
+  - [ ] 認証設定
+  - [ ] 接続テスト
+- [ ] バトルログのエクスポート
+  - [ ] JSON→BigQueryマッピング
+  - [ ] バッチ挿入機能
+  - [ ] エラーハンドリング
+- [ ] リポジトリ実装
+  - [ ] BattleLogRepository
+  - [ ] BigQuery読み込み機能
+- [ ] Streamlit UIとの統合
+  - [ ] BigQueryからのデータ取得
+  - [ ] 統計・分析ページの拡張
+  - [ ] データソース切り替え（ローカル/BigQuery）
+- [ ] 統合テスト作成
+
+#### 実装ファイル
+- `infrastructure/bigquery/client.py`
+- `infrastructure/bigquery/schema.py`
+- `infrastructure/bigquery/repository.py`
+- `application/use_cases/export_battle_log.py`
+- `streamlit_app/pages/5_☁️_cloud_analytics.py` - BigQuery統計分析
+
+#### BigQueryテーブル構造
+```sql
+-- battles: バトル基本情報
+-- battle_logs: ターン毎のイベントログ
+-- battle_creatures: 参加Creatureの統計情報
+```
+
+#### 備考
+Phase 6ではBigQuery連携を実装し、Phase 5で作成したStreamlit UIに統合します。これにより、ローカルデータとクラウドデータの両方を扱えるようになります。
+
 ---
 
 ### Phase 7: テスト・最適化・Double Battle
 
-**期間**: Week 9-11
+**期間**: Week 11-13
 
 #### タスク
 - [ ] エンドツーエンドテスト
   - [ ] JSON読み込み→バトル実行→BigQuery送信
+  - [ ] ローカル→クラウドの完全フロー
   - [ ] 複数バトルシナリオ
   - [ ] Streamlit UIのテスト
 - [ ] パフォーマンス最適化
   - [ ] プロファイリング
   - [ ] ボトルネック改善
   - [ ] BigQueryクエリ最適化
+  - [ ] バトル実行速度の改善
 - [ ] Double Battle実装
   - [ ] 2対2のバトルステート管理
   - [ ] 複数ターゲット処理
   - [ ] Speed順の複雑な制御
   - [ ] StreamlitでのDouble Battle UI
 - [ ] ドキュメント整備
-  - [ ] アーキテクチャドキュメント
-  - [ ] API仕様書
   - [ ] Streamlit使い方ガイド
+  - [ ] BigQueryスキーマドキュメント
+  - [ ] デプロイガイド
 - [ ] コードレビュー＆リファクタリング
 
 #### 実装ファイル
-- `docs/architecture.md`
 - `docs/streamlit_guide.md`
 - `docs/bigquery_schema.md`
+- `docs/deployment_guide.md`
 - `battle/double_battle_engine.py`
+- `streamlit_app/pages/6_⚔️_double_battle.py`
 
 ---
 
@@ -426,12 +472,13 @@ streamlit run streamlit_app/app.py
 - Phase 1: ✅ 完了 (100%) - 基礎構築+マスタデータ
 - Phase 2: ✅ 完了 (100%) - ドメインモデル拡張
 - Phase 3: ✅ 完了 (100%) - 計算ロジック実装
-- Phase 4: ⚪ 未着手 (0%) - バトルシステム実装
-- Phase 5: ⚪ 未着手 (0%) - BigQuery連携
-- Phase 6: ⚪ 未着手 (0%) - 🎨 Streamlit UI
+- Phase 4: ✅ 完了 (100%) - バトルシステム実装
+- Phase 5: ⚪ 未着手 (0%) - 🎨 Streamlit UI
+- Phase 6: ⚪ 未着手 (0%) - BigQuery連携
 - Phase 7: ⚪ 未着手 (0%) - テスト・最適化・Double Battle
 
 ### 直近の更新
+- 2026-03-30: Phase 4完了 - SkillExecutor実装、Effect適用システム実装、統合テスト作成（テスト103個合格）
 - 2026-03-27: Phase 3完了 - Ability補正・状態異常補正を実装、包括的なテスト作成（テスト89個合格）
 - 2026-03-26: Phase 2完了 - StatusAilment、Ability、Player、StatModifierサービス実装（テスト82個合格）
 - 2026-03-23 18:30: マスタデータ作成完了 - 10体のクリーチャー、29種類の技、10種類の特性、タイプ相性表、ローダークラス実装（テスト22個合格）

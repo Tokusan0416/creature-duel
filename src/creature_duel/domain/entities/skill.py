@@ -1,5 +1,5 @@
-from dataclasses import dataclass
-from typing import Optional, Callable
+from dataclasses import dataclass, field
+from typing import Optional, Callable, List, Dict, Any
 
 from creature_duel.domain.enums.move_category import MoveCategory
 from creature_duel.domain.value_objects.type import Type
@@ -15,7 +15,8 @@ class Skill:
     accuracy: float  # 0.0 ~ 1.0
     max_pp: int
     current_pp: int = 0
-    effect: Optional[Callable] = None  # 追加効果（状態異常、能力変化等）
+    effect: Optional[Callable] = None  # 追加効果（状態異常、能力変化等）- 旧形式
+    effects: List[Dict[str, Any]] = field(default_factory=list)  # Effect定義リスト
 
     def __post_init__(self):
         """初期化後の処理"""
