@@ -1,0 +1,70 @@
+{
+  "winner": "player1",
+  "total_turns": 1,
+  "logs": [
+    {
+      "event_type": "battle_start",
+      "player1_creature": "Venusaur",
+      "player2_creature": "Blastoise",
+      "turn": 1,
+      "timestamp": "2026-03-31T12:25:25.618575"
+    },
+    {
+      "event_type": "turn_start",
+      "turn": 1,
+      "player1_hp": 155,
+      "player2_hp": 158,
+      "timestamp": "2026-03-31T12:25:25.618585"
+    },
+    {
+      "event_type": "skill_used",
+      "attacker": "player1",
+      "creature": "Venusaur",
+      "skill": "Energy Ball",
+      "pp_remaining": 9,
+      "turn": 1,
+      "timestamp": "2026-03-31T12:25:25.618941"
+    },
+    {
+      "event_type": "damage_dealt",
+      "attacker": "player1",
+      "defender": "player2",
+      "damage": 257,
+      "critical": false,
+      "remaining_hp": 0,
+      "turn": 1,
+      "timestamp": "2026-03-31T12:25:25.618946"
+    },
+    {
+      "event_type": "creature_fainted",
+      "creature": "Blastoise",
+      "player": "player2",
+      "turn": 1,
+      "timestamp": "2026-03-31T12:25:25.618948"
+    },
+    {
+      "event_type": "battle_end",
+      "winner": "player1",
+      "turn": 1,
+      "timestamp": "2026-03-31T12:25:25.618954"
+    }
+  ],
+  "summary": {
+    "total_turns": 1,
+    "total_events": 6,
+    "started_at": "2026-03-31T12:25:25.618560",
+    "ended_at": "2026-03-31T12:25:25.618958"
+  },
+  "final_state": {
+    "player1": {
+      "creature": "Venusaur",
+      "hp": 155,
+      "fainted": false
+    },
+    "player2": {
+      "creature": "Blastoise",
+      "hp": 0,
+      "fainted": true
+    }
+  }
+}
